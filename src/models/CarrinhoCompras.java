@@ -1,27 +1,76 @@
 package src.models;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.DoubleSummaryStatistics;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class CarrinhoCompras {
 
     private Cliente cliente;
-    private List<ProdutoNoCarrinho> itens;
+    private List<Produto> itens;
 
     public CarrinhoCompras(Cliente cliente) {
         this.cliente = cliente;
-        this.itens = new ArrayList<ProdutoNoCarrinho>();
+        this.itens = new ArrayList<Produto>();
     }
 
-    public void adicionaProduto(Produto produto, Integer quantidade) {
+    public void adicionaProduto(Produto produto, int quantidade) {
 
-        itens.add(new ProdutoNoCarrinho(produto, quantidade));
+        if (quantidade <= 0) {
+            return;
+        }
+
+        for (int i = 1; i <= quantidade; i++) {
+            this.adicionaProduto(produto);
+        }
 
     }
 
-    //TODO retornar nomes de produtos e quantidades
-    public List<ProdutoNoCarrinho> getItens(){
-        return this.itens;
+    public void adicionaProduto(Produto produto) {
+
+        itens.add(produto);
+
     }
+
+    // TODO retornar nomes de produtos e quantidades
+    /**
+     * @return
+     */
+    public Map<String, DoubleSummaryStatistics> getItens() {
+
+        Map<String, DoubleSummaryStatistics> carrinho = this.itens.stream()
+                .collect(Collectors.groupingBy(Produto::getNome,
+                        Collectors.summarizingDouble(Produto::getPreco)));
+
+        return carrinho;
+
+    }
+
+    // TODO: Implement
+    public void removeProduto(Produto produto) {
+
+    }
+
+    @Override
+    public String toString() {
+        String mensagem = "";
+
+        Map<String, DoubleSummaryStatistics> carrinho = this.getItens();
+
+        for (String key : carrinho.keySet()) {
+
+            mensagem += "produto " + key + " qtd: " + carrinho.get(key).getCount() + " preço total: R$ "
+                    + String.format("%.2f", carrinho.get(key).getSum()) + " preço und: "
+                    + carrinho.get(key).getAverage() + "\n";
+
+        }
+
+        return mensagem;
+    }
+
 }

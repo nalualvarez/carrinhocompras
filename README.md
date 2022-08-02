@@ -4,11 +4,11 @@ Crie um projeto para manipular um carrinho de compras.
 
 Funcionalidades:
 
-    O cliente pode ser PessoaFisica ou PessoaJuridica
-    Criar um método para listar os itens no carrinho (Produto, Quantidade, Preço Unitário e Total por item)
+    O cliente pode ser PessoaFisica ou PessoaJuridica (OK)
+    Criar um método para listar os itens no carrinho (Produto, Quantidade, Preço Unitário e Total por item) (OK)
     Criar promoção para tipo de produto. Prever o desconto no momento de calcular o total da compra.
-    Calcular o total a pagar do carrinho de compras.
-    Criar um método para adicionar um item no carrinho.
+    Calcular o total a pagar do carrinho de compras. (OK)
+    Criar um método para adicionar um item no carrinho. (OK)
     Criar um método para remover um item do carrinho.
     Criar um método para alterar a quantidade de um item do carrinho.
     Ao adicionar um novo produto verificar se o produto já existe, se existir atualizar apenas a quantidade.
