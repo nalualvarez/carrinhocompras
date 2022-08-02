@@ -64,9 +64,9 @@ public class CarrinhoCompras {
 
         for (String key : carrinho.keySet()) {
 
-            mensagem += "produto " + key + " qtd: " + carrinho.get(key).getCount() + " preço total: R$ "
-                    + String.format("%.2f", carrinho.get(key).getSum()) + " preço und: "
-                    + carrinho.get(key).getAverage() + "\n";
+            mensagem += "PRODUTO " + key + " | PREÇO UND: "
+                    + carrinho.get(key).getAverage() + " | QTD.: " + carrinho.get(key).getCount() + " | PREÇO TOTAL: R$ "
+                    + String.format("%.2f", carrinho.get(key).getSum()) + "\n";
 
         }
 
