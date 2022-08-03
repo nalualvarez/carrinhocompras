@@ -1,6 +1,5 @@
 package src.tests;
 
-
 import java.util.DoubleSummaryStatistics;
 import java.util.Map;
 
@@ -15,7 +14,7 @@ public class Main {
     public static void main(String[] args) {
 
         Cliente client = new PessoaFisica("Zezin", "1234567");
-
+        EstoqueDao estoque = EstoqueDao.inicializar();
         CarrinhoCompras carrinho = new CarrinhoCompras(client);
 
         Produto bacia = new Produto("Bacia", 14.95, EnumTipoProduto.UTENSILIOS);
@@ -23,6 +22,10 @@ public class Main {
         Produto pinga1 = new Produto("pinga", 150.95, EnumTipoProduto.BEBIDAS);
         Produto pinga2 = new Produto("pinga", 150.95, EnumTipoProduto.BEBIDAS);
         Produto redbull = new Produto("redbull", 20.95, EnumTipoProduto.BEBIDAS);
+
+        // Teste adicionar estoque
+        estoque.adicionarEstoque(10, bacia, pera, pinga1, pinga2, redbull);
+        System.out.println(estoque.listarEstoque().values().toString());
 
         // carrinho.adicionaProduto(bacia);
         carrinho.adicionaProduto(pera);
@@ -42,21 +45,10 @@ public class Main {
         System.out.println((c.get(pinga1.getId()).getCount()));
         System.out.println((c.get(redbull.getId()).getCount()));
 
-        //System.out.println(carrinho);
-
-        
+        // Teste alterar quantidade
+        System.out.println(carrinho);
         carrinho.alterarQuantidade(bacia, 150);
-
-        //System.out.println(carrinho);
-
-        EstoqueDao.adicionarEstoque(pinga1, 15  );
-        EstoqueDao.adicionarEstoque(pera, 25);
-        EstoqueDao.adicionarEstoque(pinga2, 10);
-
-        System.out.println(EstoqueDao.listarEstoque().values().toString()); 
-
-        
-
+        System.out.println(carrinho);
 
     }
 }

@@ -37,10 +37,6 @@ public class CarrinhoCompras {
 
     }
 
-    // TODO retornar nomes de produtos e quantidades
-    /**
-     * @return
-     */
     public Map<String, DoubleSummaryStatistics> getItens() {
 
         Map<String, DoubleSummaryStatistics> carrinho = this.itens.stream()
@@ -49,36 +45,33 @@ public class CarrinhoCompras {
         return carrinho;
     }
 
-    // TODO: Implementar removeProduto
     public void removeProduto(Produto produto) {
         removeProduto(produto, 1);
     }
 
     public void removeProduto(Produto produto, long quantidade) {
-        
+
         for (long i = 0; i < quantidade; i++) {
             itens.remove(produto);
         }
     }
 
-    public long contarProduto(Produto produto ) {
-        
-       return this.getItens().get(produto.getId()).getCount();
+    public long contarProduto(Produto produto) {
+
+        return this.getItens().get(produto.getId()).getCount();
     }
 
-    // TODO: Implementar alterarQuantidade
     public void alterarQuantidade(Produto produto) {
         alterarQuantidade(produto, 1);
     }
 
-    public void alterarQuantidade(Produto produto, int quantidade ) {
+    public void alterarQuantidade(Produto produto, int quantidade) {
 
         long contagem = contarProduto(produto) - quantidade;
-        if(contagem > 0){
+        if (contagem > 0) {
             this.removeProduto(produto, contagem);
-        }
-        else{
-            this.adicionaProduto(produto, -1*contagem);
+        } else {
+            this.adicionaProduto(produto, -1 * contagem);
         }
     }
 
