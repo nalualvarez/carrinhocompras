@@ -45,14 +45,19 @@ public class CarrinhoCompras {
 
         Map<String, DoubleSummaryStatistics> carrinho = this.itens.stream()
                 .collect(Collectors.groupingBy(Produto::getNome,
-                        Collectors.summarizingDouble(Produto::getPreco)));
+                        Collectors.summarizingDouble(Produto::getPrecoDouble)));
 
         return carrinho;
 
     }
 
-    // TODO: Implement
+    // TODO: Implementar removeProduto
     public void removeProduto(Produto produto) {
+
+    }
+
+    // TODO: Implementar alterarQuantidade
+    public void alterarQuantidade(Produto produto) {
 
     }
 
@@ -65,7 +70,8 @@ public class CarrinhoCompras {
         for (String key : carrinho.keySet()) {
 
             mensagem += "PRODUTO " + key + " | PREÇO UND: "
-                    + carrinho.get(key).getAverage() + " | QTD.: " + carrinho.get(key).getCount() + " | PREÇO TOTAL: R$ "
+                    + carrinho.get(key).getAverage() + " | QTD.: " + carrinho.get(key).getCount()
+                    + " | PREÇO TOTAL: R$ "
                     + String.format("%.2f", carrinho.get(key).getSum()) + "\n";
 
         }

@@ -4,23 +4,39 @@ import java.math.BigDecimal;
 
 public class Produto {
     private String nome;
-    private double preco;
+    private BigDecimal preco;
+    private EnumTipoProduto tipo;
 
+    // Construtores
+    public Produto() {
+    }
+
+    public Produto(String nome, BigDecimal preco, EnumTipoProduto tipo) {
+        this.nome = nome;
+        this.preco = preco;
+        this.tipo = tipo;
+    }
+
+    public Produto(String nome, double preco, EnumTipoProduto tipo) {
+        this.nome = nome;
+        this.preco = BigDecimal.valueOf(preco);
+        this.tipo = tipo;
+    }
+
+    // Getters and setters
     public String getNome() {
         return this.nome;
     }
 
-    public double getPreco() {
+    public BigDecimal getPreco() {
         return this.preco;
     }
 
-    public Produto(String nome, double preco) {
-        this.nome = nome;
-        this.preco = preco;
+    public double getPrecoDouble() {
+        return this.preco.doubleValue();
     }
 
-    public Produto() {
-
+    public EnumTipoProduto getTipo() {
+        return tipo;
     }
-
 }
