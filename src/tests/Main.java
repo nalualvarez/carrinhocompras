@@ -1,8 +1,10 @@
 package src.tests;
 
+
 import java.util.DoubleSummaryStatistics;
 import java.util.Map;
 
+import src.dao.EstoqueDao;
 import src.models.CarrinhoCompras;
 import src.models.Cliente;
 import src.models.EnumTipoProduto;
@@ -37,12 +39,24 @@ public class Main {
 
         Map<String, DoubleSummaryStatistics> c = carrinho.getItens();
 
-        System.out.println((c.get("pinga")));
-        System.out.println((c.get("Bacia").getCount()));
+        System.out.println((c.get(pinga1.getId()).getCount()));
+        System.out.println((c.get(redbull.getId()).getCount()));
 
-        System.out.println(carrinho);
+        //System.out.println(carrinho);
 
-        c.get("pinga").getSum();
+        
+        carrinho.alterarQuantidade(bacia, 150);
+
+        //System.out.println(carrinho);
+
+        EstoqueDao.adicionarEstoque(pinga1, 15  );
+        EstoqueDao.adicionarEstoque(pera, 25);
+        EstoqueDao.adicionarEstoque(pinga2, 10);
+
+        System.out.println(EstoqueDao.listarEstoque().values().toString()); 
+
+        
+
 
     }
 }

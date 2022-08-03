@@ -19,13 +19,13 @@ public class CarrinhoCompras {
         this.itens = new ArrayList<Produto>();
     }
 
-    public void adicionaProduto(Produto produto, int quantidade) {
+    public void adicionaProduto(Produto produto, long quantidade) {
 
         if (quantidade <= 0) {
             return;
         }
 
-        for (int i = 1; i <= quantidade; i++) {
+        for (long i = 1; i <= quantidade; i++) {
             this.adicionaProduto(produto);
         }
 
@@ -44,21 +44,42 @@ public class CarrinhoCompras {
     public Map<String, DoubleSummaryStatistics> getItens() {
 
         Map<String, DoubleSummaryStatistics> carrinho = this.itens.stream()
-                .collect(Collectors.groupingBy(Produto::getNome,
-                        Collectors.summarizingDouble(Produto::getPrecoDouble)));
+                .collect(Collectors.groupingBy(Produto::getId, Collectors.summarizingDouble(Produto::getPrecoDouble)));
 
         return carrinho;
-
     }
 
     // TODO: Implementar removeProduto
     public void removeProduto(Produto produto) {
+        removeProduto(produto, 1);
+    }
 
+    public void removeProduto(Produto produto, long quantidade) {
+        
+        for (long i = 0; i < quantidade; i++) {
+            itens.remove(produto);
+        }
+    }
+
+    public long contarProduto(Produto produto ) {
+        
+       return this.getItens().get(produto.getId()).getCount();
     }
 
     // TODO: Implementar alterarQuantidade
     public void alterarQuantidade(Produto produto) {
+        alterarQuantidade(produto, 1);
+    }
 
+    public void alterarQuantidade(Produto produto, int quantidade ) {
+
+        long contagem = contarProduto(produto) - quantidade;
+        if(contagem > 0){
+            this.removeProduto(produto, contagem);
+        }
+        else{
+            this.adicionaProduto(produto, -1*contagem);
+        }
     }
 
     @Override
