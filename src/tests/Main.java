@@ -1,11 +1,11 @@
 package src.tests;
 
-import java.math.BigDecimal;
 import java.util.DoubleSummaryStatistics;
 import java.util.Map;
 
 import src.models.CarrinhoCompras;
 import src.models.Cliente;
+import src.models.EnumTipoProduto;
 import src.models.PessoaFisica;
 import src.models.Produto;
 
@@ -16,12 +16,11 @@ public class Main {
 
         CarrinhoCompras carrinho = new CarrinhoCompras(client);
 
-        Produto bacia = new Produto("Bacia", 14.95);
-        Produto pera = new Produto("pera", 15.95);
-        Produto pinga1 = new Produto("pinga", 150.95);
-        Produto pinga2 = new Produto("pinga", 150.95);
-
-        Produto redbull = new Produto("redbull", 20.95);
+        Produto bacia = new Produto("Bacia", 14.95, EnumTipoProduto.UTENSILIOS);
+        Produto pera = new Produto("pera", 15.95, EnumTipoProduto.HORTIFRUTI);
+        Produto pinga1 = new Produto("pinga", 150.95, EnumTipoProduto.BEBIDAS);
+        Produto pinga2 = new Produto("pinga", 150.95, EnumTipoProduto.BEBIDAS);
+        Produto redbull = new Produto("redbull", 20.95, EnumTipoProduto.BEBIDAS);
 
         // carrinho.adicionaProduto(bacia);
         carrinho.adicionaProduto(pera);
