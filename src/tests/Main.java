@@ -4,18 +4,14 @@ import java.util.DoubleSummaryStatistics;
 import java.util.Map;
 
 import src.dao.EstoqueDao;
-import src.models.CarrinhoCompras;
-import src.models.Cliente;
-import src.models.EnumTipoProduto;
-import src.models.PessoaFisica;
-import src.models.Produto;
+import src.models.*;
 
 public class Main {
     public static void main(String[] args) {
 
         Cliente client = new PessoaFisica("Zezin", "1234567");
         EstoqueDao estoque = EstoqueDao.inicializar();
-        CarrinhoCompras carrinho = new CarrinhoCompras(client);
+        CarrinhoCompras carrinho = new CarrinhoCompras();
 
         Produto bacia = new Produto("Bacia", 14.95, EnumTipoProduto.UTENSILIOS);
         Produto pera = new Produto("pera", 15.95, EnumTipoProduto.HORTIFRUTI);
@@ -40,6 +36,8 @@ public class Main {
 
         carrinho.adicionaProduto(redbull);
 
+
+
         Map<String, DoubleSummaryStatistics> c = carrinho.getItens();
 
         System.out.println((c.get(pinga1.getId()).getCount()));
@@ -50,5 +48,10 @@ public class Main {
         carrinho.alterarQuantidade(bacia, 150);
         System.out.println(carrinho);
 
+
+        Compra minhaCompra = new Compra(carrinho, client);
+        System.out.println("Valor com taxas: "+minhaCompra.calcularValor());
+        System.out.println("Valor do frete: "+minhaCompra.calcularFrete());
+        System.out.println("Valor total: "+minhaCompra.calcularTotal());
     }
 }

@@ -1,5 +1,7 @@
 package src.models;
 
+import src.dao.EstoqueDao;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.DoubleSummaryStatistics;
@@ -11,23 +13,32 @@ import java.util.stream.Stream;
 
 public class CarrinhoCompras {
 
-    private Cliente cliente;
     private List<Produto> itens;
 
-    public CarrinhoCompras(Cliente cliente) {
-        this.cliente = cliente;
+    public CarrinhoCompras() {
+
         this.itens = new ArrayList<Produto>();
     }
 
     public void adicionaProduto(Produto produto, long quantidade) {
 
+        EstoqueDao estoque = EstoqueDao.inicializar();
+
         if (quantidade <= 0) {
             return;
         }
 
-        for (long i = 1; i <= quantidade; i++) {
-            this.adicionaProduto(produto);
+        if (estoque.listarEstoque().get(produto) >= quantidade){
+            for (long i = 1; i <= quantidade; i++) {
+                this.adicionaProduto(produto);
+                estoque.atualizarEstoque(produto, (estoque.listarEstoque().get(produto) - 1));
+            }
         }
+        else {
+            System.out.println("Produto "+ produto.getNome() +" não disponível nessa quantidade.");
+        }
+
+
 
     }
 
@@ -45,15 +56,20 @@ public class CarrinhoCompras {
         return carrinho;
     }
 
+    public List<Produto> getProdutos(){
+        return this.itens;
+    }
+
     public void removeProduto(Produto produto) {
         removeProduto(produto, 1);
     }
 
     public void removeProduto(Produto produto, long quantidade) {
-
+        EstoqueDao estoque = EstoqueDao.inicializar();
         for (long i = 0; i < quantidade; i++) {
             itens.remove(produto);
         }
+        estoque.adicionarEstoque(produto, Integer.valueOf((int) quantidade));
     }
 
     public long contarProduto(Produto produto) {
